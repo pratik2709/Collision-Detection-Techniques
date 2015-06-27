@@ -45,6 +45,18 @@ var testVector1 = new Vector(5,9);
 var testVector2 = new Vector(3,4);
 console.log(testVector1.dot(testVector2)); //51
 
+//square the vector
+Vector.prototype.square = function(){
+    return this.dot(this);
+};
+
+//magnitude of the vector
+Vector.prototype.magnitude = function(){
+    return Math.sqrt(this.square());
+};
+
+//test for calculating magnitude
+console.log(testVector1.magnitude());
 
 //get (x,y) each point belonging to the rectangle
 //calculate from initial corner points all points for the rectangle
