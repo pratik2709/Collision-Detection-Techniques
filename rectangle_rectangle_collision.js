@@ -34,6 +34,18 @@ var Vector = function(x,y){
     this.y = y || 0;
 };
 
+//get the dot product
+//'this' refers to 'this object'
+Vector.prototype.dot = function(other){
+    return this.x * other.x + this.y * other.y
+};
+
+//test for dot product works or not
+var testVector1 = new Vector(5,9);
+var testVector2 = new Vector(3,4);
+console.log(testVector1.dot(testVector2)); //51
+
+
 //get (x,y) each point belonging to the rectangle
 //calculate from initial corner points all points for the rectangle
 var dot14 = new Vector(rectangle.x, rectangle.y);
