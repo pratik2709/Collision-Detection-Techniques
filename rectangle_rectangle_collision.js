@@ -58,6 +58,16 @@ Vector.prototype.magnitude = function(){
 //test for calculating magnitude
 console.log(testVector1.magnitude());
 
+//normalize a vector
+Vector.prototype.normalize = function(){
+    var magnitude = this.magnitude;
+    if(magnitude > 0){
+        this.x /= magnitude;
+        this.y /= magnitude;
+    }
+    return this;
+};
+
 //get (x,y) each point belonging to the rectangle
 //calculate from initial corner points all points for the rectangle
 var dot14 = new Vector(rectangle.x, rectangle.y);
@@ -72,4 +82,9 @@ var dot22 = new Vector(rectangle2.x + rectangle2.width, rectangle2.y + rectangle
 var dot23 = new Vector(rectangle2.x , rectangle2.y + rectangle2.height);
 
 //get the axis
+// why 1 and -1 ??
+//does this needs to be calculated depending on the angle?
+var axis_temp = new Vector(1, -1);
+var axis = axis_temp.normalize();
+
 
