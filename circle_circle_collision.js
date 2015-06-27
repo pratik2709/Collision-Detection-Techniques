@@ -30,4 +30,3 @@ function drawCircle(circle){
     context.strokeStyle = '#003300';
     context.stroke();
 }
-
