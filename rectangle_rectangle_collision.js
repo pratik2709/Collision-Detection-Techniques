@@ -9,23 +9,38 @@ var rectangle = {
 };
 
 var rectangle2 = {
-    x:(2),
-    y:(2),
+    x:(canvas.width / 2),
+    y:(canvas.height / 2),
     w:200,
-    h:500
+    h:100
 };
 
-drawPolygon(rectangle.x, rectangle.y, rectangle.w, rectangle.h);
-drawPolygon(rectangle2.x, rectangle2.y, rectangle2.w, rectangle2.h);
+drawPolygon1(rectangle.x, rectangle.y, rectangle.w, rectangle.h);
+drawPolygon2(rectangle2.x, rectangle2.y, rectangle2.w, rectangle2.h);
 
-function drawPolygon(x,y,w,h){
+function drawPolygon1(x,y,w,h){
     context.beginPath();
     context.rect(x,y,w,h);
     context.fillStyle = 'yellow';
     context.fill();
     context.lineWidth = 7;
     context.strokeStyle = 'black';
+    context.rotate(45*Math.PI/180);
     context.stroke();
+    context.closePath();
+
+}
+
+function drawPolygon2(x,y,w,h){
+    context.beginPath();
+    context.rect(x,y,w,h);
+    context.fillStyle = 'yellow';
+    context.fill();
+    context.lineWidth = 7;
+    context.strokeStyle = 'black';
+    context.rotate(45*Math.PI/180);
+    context.stroke();
+    context.closePath();
 
 }
 
@@ -74,17 +89,30 @@ var dot14 = new Vector(rectangle.x, rectangle.y);
 var dot11 = new Vector(rectangle.x + rectangle.width, rectangle.y);
 var dot12 = new Vector(rectangle.x + rectangle.width, rectangle.y + rectangle.height);
 var dot13 = new Vector(rectangle.x , rectangle.y + rectangle.height);
-
+var dot10 = new Vector(rectangle.x + (rectangle.width)/2, rectangle.y + (rectangle.height)/2);
 
 var dot24 = new Vector(rectangle2.x, rectangle2.y);
 var dot21 = new Vector(rectangle2.x + rectangle2.width, rectangle2.y);
 var dot22 = new Vector(rectangle2.x + rectangle2.width, rectangle2.y + rectangle2.height);
 var dot23 = new Vector(rectangle2.x , rectangle2.y + rectangle2.height);
+var dot20 = new Vector(rectangle2.x + (rectangle2.width)/2, rectangle2.y + (rectangle2.height)/2);
 
 //get the axis
 // why 1 and -1 ??
 //does this needs to be calculated depending on the angle?
 var axis_temp = new Vector(1, -1);
 var axis = axis_temp.normalize();
+
+//get all the vector distances
+var C = new Vector(dot20.x - dot10.x, dot20.y - dot10.y);
+var A = new Vector(dot11.x - dot10.x, dot11.y - dot10.y);
+var B = new Vector(dot24.x - dot20.x, dot24.y - dot20.y);
+
+var projC = C.dot(axis);
+var projA = A.dot(axis);
+var projB = B.dot(axis);
+
+var gap = projC - (projA+projB);
+console.log("The gap is:: " +gap);
 
 
