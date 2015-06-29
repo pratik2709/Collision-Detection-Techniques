@@ -17,6 +17,7 @@ var rectangle2 = {
 
 context.rotate(20 * (3.14)/180);
 drawPolygon(rectangle.x, rectangle.y, rectangle.w, rectangle.h, 20);
+//entire context has been rotated
 context.rotate(-20 * (3.14)/180); //undo rotation
 
 context.rotate(20 * (3.14)/180);
