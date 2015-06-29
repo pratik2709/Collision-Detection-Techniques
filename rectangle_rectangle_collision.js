@@ -2,45 +2,34 @@ var canvas = document.getElementById('myCanvas');
 var context = canvas.getContext('2d');
 
 var rectangle = {
-    x:(canvas.width / 2),
-    y:(canvas.height / 2),
+    x:300,
+    y:300,
     w:200,
     h:100
 };
 
 var rectangle2 = {
-    x:(canvas.width / 2),
-    y:(canvas.height / 2),
+    x:500,
+    y:500,
     w:200,
     h:100
 };
 
-drawPolygon1(rectangle.x, rectangle.y, rectangle.w, rectangle.h);
-drawPolygon2(rectangle2.x, rectangle2.y, rectangle2.w, rectangle2.h);
+context.rotate(20 * (3.14)/180);
+drawPolygon(rectangle.x, rectangle.y, rectangle.w, rectangle.h, 20);
+context.rotate(-20 * (3.14)/180); //undo rotation
 
-function drawPolygon1(x,y,w,h){
+context.rotate(20 * (3.14)/180);
+drawPolygon(rectangle2.x, rectangle2.y, rectangle2.w, rectangle2.h,20);
+
+function drawPolygon(x,y,w,h,rotation_angle){
     context.beginPath();
     context.rect(x,y,w,h);
-    context.fillStyle = 'yellow';
+    context.fillStyle = "#FE8E9D";
     context.fill();
-    context.lineWidth = 7;
-    context.strokeStyle = 'black';
-    context.rotate(45*Math.PI/180);
+    context.lineWidth = 5;
+    context.strokeStyle = "black";
     context.stroke();
-    context.closePath();
-
-}
-
-function drawPolygon2(x,y,w,h){
-    context.beginPath();
-    context.rect(x,y,w,h);
-    context.fillStyle = 'yellow';
-    context.fill();
-    context.lineWidth = 7;
-    context.strokeStyle = 'black';
-    context.rotate(45*Math.PI/180);
-    context.stroke();
-    context.closePath();
 
 }
 
