@@ -2,28 +2,29 @@ var canvas = document.getElementById('myCanvas');
 var context = canvas.getContext('2d');
 
 var rectangle = {
-    x:300,
-    y:300,
+
+    x:600,
+    y:1200,
     w:200,
-    h:100
+    h:200
 };
 
 var rectangle2 = {
-    x:500,
-    y:500,
+    x:800,
+    y:1200,
     w:200,
-    h:100
+    h:200
 };
 
-context.rotate(20 * (3.14)/180);
-drawPolygon(rectangle.x, rectangle.y, rectangle.w, rectangle.h, 20);
+context.rotate(-45 * (3.14)/180);
+drawPolygon(rectangle.x, rectangle.y, rectangle.w, rectangle.h, '"#FE8E9D"');
 //entire context has been rotated
-context.rotate(-20 * (3.14)/180); //undo rotation
+context.rotate(45 * (3.14)/180); //undo rotation
 
-context.rotate(20 * (3.14)/180);
-drawPolygon(rectangle2.x, rectangle2.y, rectangle2.w, rectangle2.h,20);
+context.rotate(-45 * (3.14)/180);
+drawPolygon(rectangle2.x, rectangle2.y, rectangle2.w, rectangle2.h, "#FE8E9D");
 
-function drawPolygon(x,y,w,h,rotation_angle){
+function drawPolygon(x,y,w,h, color){
     context.beginPath();
     context.rect(x,y,w,h);
     context.fillStyle = "#FE8E9D";
@@ -76,16 +77,26 @@ Vector.prototype.normalize = function(){
 //get (x,y) each point belonging to the rectangle
 //calculate from initial corner points all points for the rectangle
 var dot14 = new Vector(rectangle.x, rectangle.y);
-var dot11 = new Vector(rectangle.x + rectangle.width, rectangle.y);
-var dot12 = new Vector(rectangle.x + rectangle.width, rectangle.y + rectangle.height);
-var dot13 = new Vector(rectangle.x , rectangle.y + rectangle.height);
-var dot10 = new Vector(rectangle.x + (rectangle.width)/2, rectangle.y + (rectangle.height)/2);
+var dot11 = new Vector(rectangle.x + rectangle.w, rectangle.y);
+console.log(dot11);
+//drawPolygon(dot11.x,dot11.y,10,10,"#000000");
+//context.fillRect(dot11.x,dot11.y,10,10);
+//context.fillStyle = "#000000";
+//context.fill();
+
+
+var dot12 = new Vector(rectangle.x + rectangle.w, rectangle.y + rectangle.h);
+var dot13 = new Vector(rectangle.x , rectangle.y + rectangle.h);
+var dot10 = new Vector(rectangle.x + (rectangle.w)/2, rectangle.y + (rectangle.h)/2);
+console.log(dot10);
 
 var dot24 = new Vector(rectangle2.x, rectangle2.y);
-var dot21 = new Vector(rectangle2.x + rectangle2.width, rectangle2.y);
-var dot22 = new Vector(rectangle2.x + rectangle2.width, rectangle2.y + rectangle2.height);
-var dot23 = new Vector(rectangle2.x , rectangle2.y + rectangle2.height);
-var dot20 = new Vector(rectangle2.x + (rectangle2.width)/2, rectangle2.y + (rectangle2.height)/2);
+console.log(dot24);
+var dot21 = new Vector(rectangle2.x + rectangle2.w, rectangle2.y);
+var dot22 = new Vector(rectangle2.x + rectangle2.w, rectangle2.y + rectangle2.h);
+var dot23 = new Vector(rectangle2.x , rectangle2.y + rectangle2.h);
+var dot20 = new Vector(rectangle2.x + (rectangle2.w)/2, rectangle2.y + (rectangle2.h)/2);
+console.log(dot20);
 
 //get the axis
 // why 1 and -1 ??
