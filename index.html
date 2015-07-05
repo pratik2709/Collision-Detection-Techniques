@@ -6,11 +6,28 @@
             margin: 0px;
             padding: 0px;
         }
+        .pass:before {
+            content: 'PASS: ';
+            color:  blue;
+            font-weight: bold;
+        }
+
+        .fail:before {
+            content: 'FAIL: ';
+            color: red;
+            font-weight: bold;
+
+        }
     </style>
 </head>
 <body>
+<ul id="output"></ul>
+
+<script></script>
 <canvas id="myCanvas" width="10000" height="10000"></canvas>
+<script src="transform_library.js"></script>
 <!--<script src="circle_circle_collision.js"></script>-->
-<script src="rectangle_rectangle_collision.js"></script>
+<!--<script src="rectangle_rectangle_collision.js"></script>-->
+<script src="rectangle_rectangle_collision_version_2.js"></script>
 </body>
 </html>    
