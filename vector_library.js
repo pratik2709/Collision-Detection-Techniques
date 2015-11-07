@@ -1,32 +1,31 @@
 var physicsEngine = (function (run) {
 
-    run.Vector = (function () {
-        this.createVector = function (x, y) {
+    run.vectorlib = (function(){
+        var Vector = function (x, y) {
             this.x = x || 0;
             this.y = y || 0;
 
-            return this;
         };
 
         //get the dot product
         //'this' refers to 'this object'
-        this.dot = function (other) {
+        Vector.prototype.dot = function (other) {
             return this.x * other.x + this.y * other.y
         };
 
 
         //square the vector
-        this.square = function () {
+        Vector.prototype.square = function () {
             return this.dot(this);
         };
 
         //magnitude of the vector
-        this.magnitude = function () {
+        Vector.prototype.magnitude = function () {
             return Math.sqrt(this.square());
         };
 
         //normalize a vector
-        this.normalize = function () {
+        Vector.prototype.normalize = function () {
             var magnitude = this.magnitude;
             if (magnitude > 0) {
                 this.x /= magnitude;
@@ -36,13 +35,11 @@ var physicsEngine = (function (run) {
         };
 
         return {
-            createVector: this.createVector,
-            dot: this.dot,
-            square: this.square,
-            magnitude: this.magnitude
+            vector: Vector
         }
 
     })();
+
 
     return run
 

@@ -1,9 +1,10 @@
 var physicsEngine = (function (run) {
 
-    var testVector1 = run.Vector.createVector(5, 9);
-    var testVector2 = run.Vector.createVector(3, 4);
-    console.log(testVector1);
-    console.log(testVector1.dot(testVector2)); //51
+    var dot1 = new run.vectorlib.vector(5, 9);
+    var dot2 = new run.vectorlib.vector(3, 4);
+    console.log(dot1);
+    console.log(dot1.dot(dot2)); //51
+    console.log(dot1.magnitude());
     //
     ////test for calculating magnitude
     //console.log(testVector1.magnitude());
