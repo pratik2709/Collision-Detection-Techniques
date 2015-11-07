@@ -3,7 +3,7 @@ var context = canvas.getContext('2d');
 
 var rectangle = {
 
-    x: 600,
+    x: 1200,
     y: 1200,
     w: 200,
     h: 200
