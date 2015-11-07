@@ -5,8 +5,6 @@ var physicsEngine = (function (run) {
     console.log(dot1);
     console.log(dot1.dot(dot2)); //51
     console.log(dot1.magnitude());
-    //
-    ////test for calculating magnitude
-    //console.log(testVector1.magnitude());
+
 
 })(physicsEngine || {});
