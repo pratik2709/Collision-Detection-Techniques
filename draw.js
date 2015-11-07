@@ -15,11 +15,16 @@ var physicsEngine = (function (run) {
 
         this.drawLine = function(context, d1, d2) {
 
-            context.beginPath();
+            //context.beginPath();
             context.moveTo(d1.x, d1.y);
             context.lineTo(d2.x, d2.y);
-            context.strokeStyle = "black";
+            context.strokeStyle = "#00FF00";
+            context.lineWidth = 5;
+            //context.closePath();
             context.stroke();
+            context.fillStyle="red";
+            context.fill();
+
         };
 
 
