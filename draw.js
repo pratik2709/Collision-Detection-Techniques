@@ -1,25 +1,9 @@
 var physicsEngine = (function (run) {
 
     run.draw = (function () {
-        var canvas = document.getElementById('myCanvas');
-        var context = canvas.getContext('2d');
 
-        this.rectangle = {
 
-            x: 1200,
-            y: 1200,
-            w: 200,
-            h: 200
-        };
-
-        this.rectangle2 = {
-            x: 800,
-            y: 1200,
-            w: 200,
-            h: 200
-        };
-
-        this.drawPolygon = function(x, y, w, h, color) {
+        this.drawPolygon = function(context, x, y, w, h, color) {
             context.beginPath();
             context.rect(x, y, w, h);
             context.fillStyle = "#FE8E9D";
@@ -29,7 +13,7 @@ var physicsEngine = (function (run) {
             context.stroke();
         };
 
-        this.drawLine = function(d1, d2) {
+        this.drawLine = function(context, d1, d2) {
 
             context.beginPath();
             context.moveTo(d1.x, d1.y);
@@ -37,6 +21,7 @@ var physicsEngine = (function (run) {
             context.strokeStyle = "black";
             context.stroke();
         };
+
 
         return {
             drawPolygon: this.drawPolygon,
