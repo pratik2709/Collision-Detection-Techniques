@@ -2,6 +2,16 @@ var physicsEngine = (function (run) {
 
     run.generic_utils = (function () {
 
+        this.prepare_vectors = function(rotated_rectangle_vectors){
+            var vector_box = [];
+            for (var key in rotated_rectangle_vectors) {
+                if (rotated_rectangle_vectors.hasOwnProperty(key)) {
+                    vector_box.push(rotated_rectangle_vectors[key]);
+                }
+            }
+            return vector_box
+        };
+
 
         this.get_rotation_points = function (transform_object, rectangle) {
             var rotation_point_d4 = transform_object.transformPoint(rectangle.x, rectangle.y);
@@ -67,7 +77,8 @@ var physicsEngine = (function (run) {
         return {
             get_rotation_points: this.get_rotation_points,
             get_vectors: this.get_vectors,
-            calculate_min_max_projection: this.calculate_min_max_projection
+            calculate_min_max_projection: this.calculate_min_max_projection,
+            prepare_vectors: this.prepare_vectors
         }
 
     })();

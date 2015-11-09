@@ -4,7 +4,7 @@ var physicsEngine = (function (run) {
     var context = canvas.getContext('2d');
     var rectangle = {
 
-        x: 80,
+        x: 180,
         y: 900,
         w: 50,
         h: 50
@@ -17,13 +17,6 @@ var physicsEngine = (function (run) {
         h: 50
     };
 
-    //context.rotate(-45 * (3.14) / 180); //entire context has been rotated
-    //run.draw.drawPolygon(context,rectangle.x, rectangle.y, rectangle.w, rectangle.h, '"#FE8E9D"');
-    //context.rotate(45 * (3.14) / 180); //undo rotation
-
-    // rotate
-    // get the  rotate co-ordinates
-    //
 
     var transform_object = new run.transform_library.transform();
     transform_object.rotate(-45 * (3.14) / 180);
@@ -70,19 +63,9 @@ var physicsEngine = (function (run) {
 
     //prepare the vector arrays which contain all
     //the vectors belong to the boxes
-    var vector_box1 = [];
-    for (var key in rotated_rectangle_vectors) {
-        if (rotated_rectangle_vectors.hasOwnProperty(key)) {
-            vector_box1.push(rotated_rectangle_vectors[key]);
-        }
-    }
+    var vector_box1 = this.prepare_vectors(rotated_rectangle_vectors);
+    var vector_box2 = this.prepare_vectors(rotated_rectangle2_vectors);
 
-    var vector_box2 = [];
-    for (var key in rotated_rectangle2_vectors) {
-        if (rotated_rectangle2_vectors.hasOwnProperty(key)) {
-            vector_box2.push(rotated_rectangle2_vectors[key]);
-        }
-    }
 
     console.log(vector_box1);
     console.log(vector_box2);
