@@ -4,7 +4,7 @@ var physicsEngine = (function (run) {
     var context = canvas.getContext('2d');
     var rectangle = {
 
-        x: 30,
+        x: 80,
         y: 900,
         w: 50,
         h: 50
@@ -85,65 +85,16 @@ var physicsEngine = (function (run) {
     }
 
     console.log(vector_box1);
-//good practice not to declare in other ways
-//    var vector_box2 = rotated_rectangle2_vectors;
     console.log(vector_box2);
-    var projections = run.generic_utils.calculate_min_max_projection(vector_box1, axis);
-
-//minimum projection of box1
-//    var minimum_projection_box1 = vector_box1[1].dot(axis);
-//    var maximum_projection_box1 = vector_box1[1].dot(axis);
-//
-//    console.log("proj for box1");
-//    for (var k = 2; k < vector_box1.length; k++) {
-//        var current_projection1 = vector_box1[k].dot(axis);
-//        //console.log(current_projection1);
-//        //maximum projection on axis
-//        if (minimum_projection_box1 > current_projection1) {
-//            minimum_projection_box1 = current_projection1;
-//            console.log(current_projection1, minimum_projection_box1);
-//
-//        }
-//        //minimum projection on axis
-//        if (current_projection1 > maximum_projection_box1) {
-//            maximum_projection_box1 = current_projection1;
-//            console.log(current_projection1, maximum_projection_box1);
-//
-//        }
-//    }
-//    console.log("for box1::" +minimum_projection_box1, maximum_projection_box1);
-
-
-//my method of calculating maximum
-
-
-
-//minimum projection of box1
-    var minimum_projection_box2 = vector_box2[1].dot(axis);
-    var maximum_projection_box2 = vector_box2[1].dot(axis);
-    console.log("proj for box2");
-
-    for (var j = 2; j < vector_box2.length; j++) {
-        var current_projection2 = vector_box2[j].dot(axis);
-        console.log(current_projection2);
-
-        //maximum projection on axis
-        if (minimum_projection_box2 > current_projection2) {
-            minimum_projection_box2 = current_projection2;
-
-        }
-        //minimum projection on axis
-        if (current_projection2 > maximum_projection_box2) {
-            maximum_projection_box2 = current_projection2;
-        }
-    }
-    console.log("for box2::" +minimum_projection_box2, maximum_projection_box2);
+    var projections_for_box1 = run.generic_utils.calculate_min_max_projection(vector_box1, axis);
+    var projections_for_box2 = run.generic_utils.calculate_min_max_projection(vector_box2, axis);
 
 
     var gap = projC - (projA + projB);
     console.log("The gap is:: " + gap);
 
-    if ((maximum_projection_box2 < projections.minimum_projection_box) || (projections.maximum_projection_box < minimum_projection_box2)) {
+    if ((projections_for_box2.maximum_projection_box < projections_for_box1.minimum_projection_box) ||
+        (projections_for_box1.maximum_projection_box < projections_for_box2.minimum_projection_box)) {
         console.log("There's a gap between both boxes");
     }
     else {
