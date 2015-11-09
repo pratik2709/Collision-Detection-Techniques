@@ -37,9 +37,37 @@ var physicsEngine = (function (run) {
             }
         };
 
+        this.calculate_min_max_projection = function(vector_box, axis){
+            var minimum_projection_box = vector_box[1].dot(axis);
+            var maximum_projection_box = vector_box[1].dot(axis);
+
+
+            for (var k = 2; k < vector_box.length; k++) {
+                var current_projection1 = vector_box[k].dot(axis);
+
+                if (minimum_projection_box > current_projection1) {
+                    minimum_projection_box = current_projection1;
+                    console.log(current_projection1, minimum_projection_box);
+
+                }
+                //minimum projection on axis
+                if (current_projection1 > maximum_projection_box) {
+                    maximum_projection_box = current_projection1;
+                    console.log(current_projection1, maximum_projection_box);
+
+                }
+            }
+            console.log("for box1::" +minimum_projection_box, maximum_projection_box);
+            return {
+                minimum_projection_box: minimum_projection_box,
+                maximum_projection_box: maximum_projection_box
+            }
+        };
+
         return {
             get_rotation_points: this.get_rotation_points,
-            get_vectors: this.get_vectors
+            get_vectors: this.get_vectors,
+            calculate_min_max_projection: this.calculate_min_max_projection
         }
 
     })();
