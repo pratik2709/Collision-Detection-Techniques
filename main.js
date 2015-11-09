@@ -30,6 +30,7 @@ var physicsEngine = (function (run) {
 
     var rotation_points = run.generic_utils.get_rotation_points(transform_object, rectangle);
     var rotated_rectangle_vectors = run.generic_utils.get_vectors(rotation_points);
+    console.log("rotated rectangle vectors::");
     console.log(rotated_rectangle_vectors);
 
 

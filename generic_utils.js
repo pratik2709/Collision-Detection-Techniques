@@ -22,11 +22,11 @@ var physicsEngine = (function (run) {
         };
 
         this.get_vectors = function(points){
-            var dot4 = new run.vectorlib.vector(points.d4[0], points.d4[0]);
-            var dot1 = new run.vectorlib.vector(points.d1[0], points.d1[0]);
-            var dot2 = new run.vectorlib.vector(points.d2[0], points.d2[0]);
-            var dot3 = new run.vectorlib.vector(points.d3[0], points.d3[0]);
-            var dot0 = new run.vectorlib.vector(points.d0[0], points.d0[0]);
+            var dot4 = new run.vectorlib.vector(points.d4[0], points.d4[1]);
+            var dot1 = new run.vectorlib.vector(points.d1[0], points.d1[1]);
+            var dot2 = new run.vectorlib.vector(points.d2[0], points.d2[1]);
+            var dot3 = new run.vectorlib.vector(points.d3[0], points.d3[1]);
+            var dot0 = new run.vectorlib.vector(points.d0[0], points.d0[1]);
 
             return {
                 dot4: dot4,
