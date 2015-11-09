@@ -131,7 +131,7 @@ function drawLine(d1, d2) {
 
 
 //get the axis
-// why 1 and -1 ??
+// why 1 and -1 ?? Draw it on paper and decide
 //does this needs to be calculated depending on the angle?
 var axis_temp = new Vector(1, -1);
 var axis = axis_temp.normalize();
@@ -145,6 +145,18 @@ var projC = C.dot(axis);
 var projA = A.dot(axis);
 var projB = B.dot(axis);
 
+
+//library functions
+
+Array.prototype.max = function() {
+    return Math.max.apply(null, this);
+};
+
+Array.prototype.min = function() {
+    return Math.min.apply(null, this);
+};
+
+//end of lib
 
 //prepare the vector arrays which contain all
 //the vectors belong to the boxes
@@ -176,7 +188,11 @@ for (var k = 2; k < vector_box1.length; k++) {
 
     }
 }
-console.log(minimum_projection_box1, maximum_projection_box1);
+console.log("for box1::" +minimum_projection_box1, maximum_projection_box1);
+
+
+//my method of calculating maximum
+
 
 
 //minimum projection of box1
@@ -198,7 +214,7 @@ for (var j = 2; j < vector_box2.length; j++) {
         maximum_projection_box2 = current_projection2;
     }
 }
-console.log(minimum_projection_box2, maximum_projection_box2);
+console.log("for box2::" +minimum_projection_box2, maximum_projection_box2);
 
 
 var gap = projC - (projA + projB);
