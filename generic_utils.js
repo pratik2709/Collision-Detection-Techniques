@@ -52,7 +52,7 @@ var physicsEngine = (function (run) {
             var minimum_projection_box = vector_box[1].dot(axis);
             var maximum_projection_box = vector_box[1].dot(axis);
 
-
+            //0 is center, 1 is already initialized so starting from 2
             for (var k = 2; k < vector_box.length; k++) {
                 var current_projection1 = vector_box[k].dot(axis);
 

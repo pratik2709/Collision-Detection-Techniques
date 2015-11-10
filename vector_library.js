@@ -27,7 +27,6 @@ var physicsEngine = (function (run) {
         //normalize a vector
         Vector.prototype.normalize = function () {
             var magnitude = this.magnitude();
-            console.log(magnitude);
             if (magnitude > 0) {
                 this.x /= magnitude;
                 this.y /= magnitude;
