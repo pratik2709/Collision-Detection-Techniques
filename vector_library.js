@@ -26,11 +26,18 @@ var physicsEngine = (function (run) {
 
         //normalize a vector
         Vector.prototype.normalize = function () {
-            var magnitude = this.magnitude;
+            var magnitude = this.magnitude();
+            console.log(magnitude);
             if (magnitude > 0) {
                 this.x /= magnitude;
                 this.y /= magnitude;
             }
+            return this;
+        };
+
+        Vector.prototype.scale = function (scale_value) {
+            this.x *= scale_value;
+            this.y *= scale_value;
             return this;
         };
 
