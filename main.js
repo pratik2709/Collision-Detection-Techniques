@@ -107,6 +107,7 @@ var physicsEngine = (function (run) {
 
     var isSeparated = false;
 
+    //checks only 2 and total 4 if needed because 2 lie on the same plane
     for (var i = 1; i < normals1.length - 1; i++) {
         var result_box1 = run.generic_utils.calculate_min_max_projection(vector_box1, normals1[i]);
         var result_box2 = run.generic_utils.calculate_min_max_projection(vector_box2, normals1[i]);
@@ -144,6 +145,7 @@ var physicsEngine = (function (run) {
         var normalized_vector = 0;
         console.log("temp_vector");
 
+        //starts from 1 because 0 is center and last one is pushed seperately
         for (var index = 1; index < vector_box.length - 1; index++) {
             dx = vector_box[index + 1].x - vector_box[index].x;
             dy = vector_box[index + 1].y - vector_box[index].y;
