@@ -13,26 +13,25 @@ var physicsEngine = (function (run) {
             context.stroke();
         };
 
-        this.drawLine = function(context, d1, d2) {
+        this.drawLine = function(context, d1, d2, color) {
 
-            //context.beginPath();
+            context.beginPath();
             context.moveTo(d1.x, d1.y);
             context.lineTo(d2.x, d2.y);
-            context.strokeStyle = "#00FF00";
+            context.strokeStyle = color;
             context.lineWidth = 5;
             //context.closePath();
             context.stroke();
             context.fillStyle="red";
             context.fill();
+            context.closePath();
 
         };
 
 
         return {
             drawPolygon: this.drawPolygon,
-            drawLine: this.drawLine,
-            rectangle: this.rectangle,
-            rectangle2: this.rectangle2
+            drawLine: this.drawLine
         }
 
     })();

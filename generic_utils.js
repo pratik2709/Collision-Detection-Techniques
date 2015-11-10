@@ -39,11 +39,12 @@ var physicsEngine = (function (run) {
             var dot0 = new run.vectorlib.vector(points.d0[0], points.d0[1]);
 
             return {
-                dot4: dot4,
+                dot0: dot0,
                 dot1: dot1,
                 dot2: dot2,
                 dot3: dot3,
-                dot0: dot0
+                dot4: dot4
+
             }
         };
 
