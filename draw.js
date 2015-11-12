@@ -42,7 +42,7 @@ var physicsEngine = (function (run) {
             drawPolygonWithLines: this.drawPolygonWithLines
         }
 
-    })(
+    })();
 
     return run
 
