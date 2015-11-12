@@ -37,8 +37,6 @@ var physicsEngine = (function (run) {
     run.draw.drawPolygonWithLines(context, rotated_rectangle2_vectors, color);
 
 
-    //prepare the vector arrays which contain all
-    //the vectors belong to the boxes
     var vector_box1 = this.prepare_vectors(rotated_rectangle_vectors);
     var vector_box2 = this.prepare_vectors(rotated_rectangle2_vectors);
 
@@ -48,8 +46,8 @@ var physicsEngine = (function (run) {
     // calculate left normals
     // display onscreen using the draw module
     //**********
-    var normals1 = get_normals(vector_box1);
-    var normals2 = get_normals(vector_box2);
+    var normals1 = run.generic_utils.get_normals(vector_box1);
+    var normals2 = run.generic_utils.get_normals(vector_box2);
 
     var isSeparated = false;
 
@@ -80,43 +78,5 @@ var physicsEngine = (function (run) {
     } else {
         console.log("Collided boxes.");
     }
-
-
-    function get_normals(vector_box) {
-        var normal_box = [];
-        //start from 1 because index 0 is center
-        var dx = 0;
-        var dy = 0;
-        var normalized_vector = 0;
-        console.log("temp_vector");
-
-        //starts from 1 because 0 is center and last one is pushed seperately
-        for (var index = 1; index < vector_box.length - 1; index++) {
-            dx = vector_box[index + 1].x - vector_box[index].x;
-            dy = vector_box[index + 1].y - vector_box[index].y;
-            normalized_vector = new run.vectorlib.vector(dx, dy);
-            normalized_vector.normalize();
-            var temp_vector = new run.vectorlib.vector(-normalized_vector.y, normalized_vector.x);
-            console.log(temp_vector);
-            normal_box.push(temp_vector);
-
-            var Dx = vector_box[index].x + 5 * normalized_vector.x;
-            var Dy = vector_box[index].y + 5 * normalized_vector.y;
-            var draw_to = new run.vectorlib.vector(Dx, Dy);
-
-            run.draw.drawLine(context, vector_box[index], draw_to, "red");
-        }
-        //add the last remaining normal
-        dx = vector_box[1].x - vector_box[4].x;
-        dy = vector_box[1].y - vector_box[4].y;
-        normalized_vector = new run.vectorlib.vector(dx, dy);
-        normalized_vector.normalize();
-        var temp_vector1 = new run.vectorlib.vector(-normalized_vector.y, normalized_vector.x);
-        console.log(temp_vector1);
-        normal_box.push(temp_vector1);
-
-        return normal_box;
-    }
-
 
 })(physicsEngine || {});

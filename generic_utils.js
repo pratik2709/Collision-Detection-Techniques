@@ -75,11 +75,45 @@ var physicsEngine = (function (run) {
             }
         };
 
+        this.get_normals = function(vector_box){
+            var normal_box = [];
+            //start from 1 because index 0 is center
+            var dx = 0;
+            var dy = 0;
+            var normalized_vector = 0;
+
+            //starts from 1 because 0 is center and last one is pushed seperately
+            for (var index = 1; index < vector_box.length - 1; index++) {
+                dx = vector_box[index + 1].x - vector_box[index].x;
+                dy = vector_box[index + 1].y - vector_box[index].y;
+                normalized_vector = new run.vectorlib.vector(dx, dy);
+                normalized_vector.normalize();
+                var temp_vector = new run.vectorlib.vector(-normalized_vector.y, normalized_vector.x);
+                normal_box.push(temp_vector);
+
+                var Dx = vector_box[index].x + 5 * normalized_vector.x;
+                var Dy = vector_box[index].y + 5 * normalized_vector.y;
+                var draw_to = new run.vectorlib.vector(Dx, Dy);
+
+                //run.draw.drawLine(context, vector_box[index], draw_to, "red");
+            }
+            //add the last remaining normal
+            dx = vector_box[1].x - vector_box[4].x;
+            dy = vector_box[1].y - vector_box[4].y;
+            normalized_vector = new run.vectorlib.vector(dx, dy);
+            normalized_vector.normalize();
+            var temp_vector1 = new run.vectorlib.vector(-normalized_vector.y, normalized_vector.x);
+            normal_box.push(temp_vector1);
+
+            return normal_box;
+        };
+
         return {
             get_rotation_points: this.get_rotation_points,
             get_vectors: this.get_vectors,
             calculate_min_max_projection: this.calculate_min_max_projection,
-            prepare_vectors: this.prepare_vectors
+            prepare_vectors: this.prepare_vectors,
+            get_normals: this.get_normals
         }
 
     })();
