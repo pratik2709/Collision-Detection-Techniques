@@ -36,39 +36,12 @@ var physicsEngine = (function (run) {
 
     run.draw.drawPolygonWithLines(context, rotated_rectangle2_vectors, color);
 
-    //get the axis
-    // why 1 and -1 ?? Draw it on paper and decide
-    //does this needs to be calculated depending on the angle?
-    var axis_temp = new run.vectorlib.vector(1, -1);
-    var axis = axis_temp.normalize();
-
-    //get all the vector distances
-    var C = new run.vectorlib.vector(rotated_rectangle2_vectors.dot2.x - rotated_rectangle_vectors.dot0.x,
-                                     rotated_rectangle2_vectors.dot2.y - rotated_rectangle_vectors.dot0.y);
-    var A = new run.vectorlib.vector(rotated_rectangle_vectors.dot1.x - rotated_rectangle_vectors.dot0.x,
-                                     rotated_rectangle_vectors.dot1.y - rotated_rectangle_vectors.dot0.y);
-    var B = new run.vectorlib.vector(rotated_rectangle_vectors.dot4.x - rotated_rectangle2_vectors.dot2.x,
-                                     rotated_rectangle_vectors.dot4.y - rotated_rectangle2_vectors.dot2.y);
-
-    var projC = C.dot(axis);
-    var projA = A.dot(axis);
-    var projB = B.dot(axis);
 
     //prepare the vector arrays which contain all
     //the vectors belong to the boxes
     var vector_box1 = this.prepare_vectors(rotated_rectangle_vectors);
     var vector_box2 = this.prepare_vectors(rotated_rectangle2_vectors);
 
-    //var gap = projC - (projA + projB);
-    //console.log("The gap is:: " + gap);
-    //
-    //if ((projections_for_box2.maximum_projection_box < projections_for_box1.minimum_projection_box) ||
-    //    (projections_for_box1.maximum_projection_box < projections_for_box2.minimum_projection_box)) {
-    //    console.log("There's a gap between both boxes");
-    //}
-    //else {
-    //    console.log("No gap calculated.");
-    //}
 
     // calculate normal function
     // get dots of the boxes
