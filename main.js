@@ -25,10 +25,8 @@ var physicsEngine = (function (run) {
     var rotated_rectangle_vectors = run.generic_utils.get_vectors(rotation_points);
 
     var color = "#00FF00";
-    run.draw.drawLine(context, rotated_rectangle_vectors.dot1, rotated_rectangle_vectors.dot2, color);
-    run.draw.drawLine(context, rotated_rectangle_vectors.dot2, rotated_rectangle_vectors.dot3, color);
-    run.draw.drawLine(context, rotated_rectangle_vectors.dot3, rotated_rectangle_vectors.dot4, color);
-    run.draw.drawLine(context, rotated_rectangle_vectors.dot4, rotated_rectangle_vectors.dot1, color);
+    run.draw.drawPolygonWithLines(context, rotated_rectangle_vectors, color);
+
 
     var transform_object1 = new run.transform_library.transform();
     transform_object1.rotate(-30 * (3.14) / 180);
@@ -36,10 +34,7 @@ var physicsEngine = (function (run) {
     var rotated_rectangle2_vectors = run.generic_utils.get_vectors(rotation_points_for_rectangle2);
 
 
-    run.draw.drawLine(context, rotated_rectangle2_vectors.dot1, rotated_rectangle2_vectors.dot2, color);
-    run.draw.drawLine(context, rotated_rectangle2_vectors.dot2, rotated_rectangle2_vectors.dot3, color);
-    run.draw.drawLine(context, rotated_rectangle2_vectors.dot3, rotated_rectangle2_vectors.dot4, color);
-    run.draw.drawLine(context, rotated_rectangle2_vectors.dot4, rotated_rectangle2_vectors.dot1, color);
+    run.draw.drawPolygonWithLines(context, rotated_rectangle2_vectors, color);
 
     //get the axis
     // why 1 and -1 ?? Draw it on paper and decide
@@ -64,13 +59,6 @@ var physicsEngine = (function (run) {
     var vector_box1 = this.prepare_vectors(rotated_rectangle_vectors);
     var vector_box2 = this.prepare_vectors(rotated_rectangle2_vectors);
 
-
-    //console.log(vector_box1);
-    //console.log(vector_box2);
-    //var projections_for_box1 = run.generic_utils.calculate_min_max_projection(vector_box1, axis);
-    //var projections_for_box2 = run.generic_utils.calculate_min_max_projection(vector_box2, axis);
-    //
-    //
     //var gap = projC - (projA + projB);
     //console.log("The gap is:: " + gap);
     //
@@ -89,21 +77,6 @@ var physicsEngine = (function (run) {
     //**********
     var normals1 = get_normals(vector_box1);
     var normals2 = get_normals(vector_box2);
-    //console.log(normals1);
-    //
-    //console.log(axis);
-    //console.log(normals1[2]);
-    //var result_p1 = run.generic_utils.calculate_min_max_projection(vector_box1, normals1[2]);
-    //var result_p2 = run.generic_utils.calculate_min_max_projection(vector_box2, normals1[2]);
-    //
-    //if ((result_p2.maximum_projection_box < result_p1.minimum_projection_box) ||
-    //    (result_p1.maximum_projection_box < result_p2.minimum_projection_box))
-    //{
-    //    console.log("There's a gap between both boxes");
-    //}
-    //else {
-    //    console.log("No gap calculated.");
-    //}
 
     var isSeparated = false;
 
@@ -129,7 +102,6 @@ var physicsEngine = (function (run) {
         }
     }
 
-    //isSeparated = separate_p || separate_Q || separate_R || separate_S
     if (isSeparated) {
         console.log("Separated boxes");
     } else {

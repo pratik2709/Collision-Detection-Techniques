@@ -13,6 +13,13 @@ var physicsEngine = (function (run) {
             context.stroke();
         };
 
+        this.drawPolygonWithLines = function(context, rotated_rectangle_vectors, color){
+            run.draw.drawLine(context, rotated_rectangle_vectors.dot1, rotated_rectangle_vectors.dot2, color);
+            run.draw.drawLine(context, rotated_rectangle_vectors.dot2, rotated_rectangle_vectors.dot3, color);
+            run.draw.drawLine(context, rotated_rectangle_vectors.dot3, rotated_rectangle_vectors.dot4, color);
+            run.draw.drawLine(context, rotated_rectangle_vectors.dot4, rotated_rectangle_vectors.dot1, color);
+        };
+
         this.drawLine = function(context, d1, d2, color) {
 
             context.beginPath();
@@ -31,10 +38,11 @@ var physicsEngine = (function (run) {
 
         return {
             drawPolygon: this.drawPolygon,
-            drawLine: this.drawLine
+            drawLine: this.drawLine,
+            drawPolygonWithLines: this.drawPolygonWithLines
         }
 
-    })();
+    })(
 
     return run
 
