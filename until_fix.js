@@ -50,6 +50,7 @@ var physicsEngine = (function (run) {
         options.target.setCoords();
         canvas.forEachObject(function(obj) {
             if (obj === options.target) return;
+            console.log("*****************************");
             console.log(obj.oCoords);
             console.log(options.target.oCoords);
             var rotated_rectangle_vectors = get_vectors_modified(obj.oCoords);
@@ -108,8 +109,8 @@ var physicsEngine = (function (run) {
         }
         if (!isSeparated) {
             for (var j = 1; j < normals2.length -1; j++) {
-                var result_P1 = run.generic_utils.calculate_min_max_projection(vector_box1, normals1[j]);
-                var result_P2 = run.generic_utils.calculate_min_max_projection(vector_box2, normals1[j]);
+                var result_P1 = run.generic_utils.calculate_min_max_projection(vector_box1, normals2[j]);
+                var result_P2 = run.generic_utils.calculate_min_max_projection(vector_box2, normals2[j]);
 
                 isSeparated = run.generic_utils.check_is_separated(result_P1, result_P2);
                 if (isSeparated) {
