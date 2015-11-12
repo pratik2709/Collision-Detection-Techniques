@@ -102,12 +102,18 @@ var physicsEngine = (function (run) {
             return normal_box;
         };
 
+        this.check_is_separated = function(box1, box2){
+            return box1.maximum_projection_box < box2.minimum_projection_box ||
+            box2.maximum_projection_box < box1.minimum_projection_box;
+        };
+
         return {
             get_rotation_points: this.get_rotation_points,
             get_vectors: this.get_vectors,
             calculate_min_max_projection: this.calculate_min_max_projection,
             prepare_vectors: this.prepare_vectors,
-            get_normals: this.get_normals
+            get_normals: this.get_normals,
+            check_is_separated: this.check_is_separated
         }
 
     })();

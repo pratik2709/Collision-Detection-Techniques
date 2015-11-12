@@ -33,19 +33,12 @@ var physicsEngine = (function (run) {
     var rotation_points_for_rectangle2 = run.generic_utils.get_rotation_points(transform_object1, rectangle2);
     var rotated_rectangle2_vectors = run.generic_utils.get_vectors(rotation_points_for_rectangle2);
 
-
     run.draw.drawPolygonWithLines(context, rotated_rectangle2_vectors, color);
 
 
     var vector_box1 = this.prepare_vectors(rotated_rectangle_vectors);
     var vector_box2 = this.prepare_vectors(rotated_rectangle2_vectors);
 
-
-    // calculate normal function
-    // get dots of the boxes
-    // calculate left normals
-    // display onscreen using the draw module
-    //**********
     var normals1 = run.generic_utils.get_normals(vector_box1);
     var normals2 = run.generic_utils.get_normals(vector_box2);
 
@@ -56,7 +49,7 @@ var physicsEngine = (function (run) {
         var result_box1 = run.generic_utils.calculate_min_max_projection(vector_box1, normals1[i]);
         var result_box2 = run.generic_utils.calculate_min_max_projection(vector_box2, normals1[i]);
 
-        isSeparated = result_box1.maximum_projection_box < result_box2.minimum_projection_box || result_box2.maximum_projection_box < result_box1.minimum_projection_box
+        isSeparated = run.generic_utils.check_is_separated(result_box1, result_box2);
         if (isSeparated) {
             break;
         }
@@ -66,7 +59,7 @@ var physicsEngine = (function (run) {
             var result_P1 = run.generic_utils.calculate_min_max_projection(vector_box1, normals1[j]);
             var result_P2 = run.generic_utils.calculate_min_max_projection(vector_box2, normals1[j]);
 
-            isSeparated = result_P1.maximum_projection_box < result_P2.minimum_projection_box || result_P2.maximum_projection_box < result_P1.minimum_projection_box
+            isSeparated = run.generic_utils.check_is_separated(result_P1, result_P2);
             if (isSeparated) {
                 break;
             }
