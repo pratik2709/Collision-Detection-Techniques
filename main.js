@@ -1,3 +1,14 @@
+// shim layer with setTimeout fallback
+window.requestAnimFrame = (function(){
+    return  window.requestAnimationFrame       ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame    ||
+        function( callback ){
+            window.setTimeout(callback, 1000 / 60);
+        };
+})();
+
+
 var physicsEngine = (function (run) {
 
     //var canvas = document.getElementById('myCanvas');
@@ -22,17 +33,14 @@ var physicsEngine = (function (run) {
     fabric.Object.prototype.transparentCorners = false;
 
     var rect1 = new fabric.Rect({
-                                    width: 100, height: 100, left: 0, top: 50, angle: 30,
-                                    fill: 'red'
+                                    width: 100, height: 100, left: 0, top: 150, angle: 30,
+                                    fill: 'red', velocity:10
                                 });
 
     var rect2 = new fabric.Rect({
                                     width: 100, height: 100, left: 350, top: 250, angle: -10,
-                                    fill: 'green'
+                                    fill: 'green', velocity:10
                                 });
-
-
-
 
 
 
@@ -46,24 +54,58 @@ var physicsEngine = (function (run) {
                   'object:rotating': onChange
               });
 
+
+
     function onChange(options) {
         options.target.setCoords();
         canvas.forEachObject(function(obj) {
             if (obj === options.target) return;
             console.log("*****************************");
-            console.log(obj.oCoords);
-            console.log(options.target.oCoords);
+            //console.log(obj.oCoords);
+            //console.log(options.target.oCoords);
             var rotated_rectangle_vectors = get_vectors_modified(obj.oCoords);
             var rotated_rectangle2_vectors = get_vectors_modified(options.target.oCoords);
             var check = is_colliding(rotated_rectangle_vectors, rotated_rectangle2_vectors);
             if (check){
                 obj.setOpacity(0.5);
+                //console.log(obj.oCoords);
+                //call request anim frame for animating rectangle
+
             }
             else {
                 obj.setOpacity(1);
             }
 
         });
+    }
+
+    rect1.animate('left', '+=1000',{ onChange: function(){
+        rect1.setCoords();
+        rect2.setCoords();
+
+        canvas.renderAll();
+        var rotated_rectangle_vectors = get_vectors_modified(rect1.oCoords);
+        var rotated_rectangle2_vectors = get_vectors_modified(rect2.oCoords);
+        var check = is_colliding(rotated_rectangle_vectors, rotated_rectangle2_vectors);
+        if (check){
+            rect1.setOpacity(0.5);
+            //console.log(obj.oCoords);
+            //call request anim frame for animating rectangle
+        }
+        else {
+            rect1.setOpacity(1);
+        }
+    },
+        duration:5000 });
+
+    function move(){
+        console.log(canvas);
+        return canvas.renderAll.bind(canvas);
+        //console.log(obj);
+        //obj.oCoords.tl.corner.x += 0.5;
+        //obj.oCoords.tl.corner.y += 0.5;
+        //canvas.renderAll.bind(canvas);
+        //requestAnimationFrame(move);
     }
 
     //var rotated_rectangle_vectors = run.generic_utils.get_vectors(rotation_points);
