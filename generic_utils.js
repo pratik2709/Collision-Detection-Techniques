@@ -58,7 +58,6 @@ var physicsEngine = (function (run) {
 
                 if (minimum_projection_box > current_projection1) {
                     minimum_projection_box = current_projection1;
-                    minimum
                 }
 
                 //minimum projection on axis

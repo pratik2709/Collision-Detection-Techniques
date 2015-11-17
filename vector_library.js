@@ -7,6 +7,12 @@ var physicsEngine = (function (run) {
 
         };
 
+        Vector.prototype.subtract_vectors = function(v) {
+            this.x -= v.x;
+            this.y -= v.y;
+            return this;
+        };
+
         //get the dot product
         //'this' refers to 'this object'
         Vector.prototype.dot = function (other) {
