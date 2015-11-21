@@ -48,6 +48,11 @@ var physicsEngine = (function (run) {
             }
         };
 
+        this.calculate_minimum_translation_vector = function(){
+
+
+        };
+
         this.calculate_min_max_projection = function(vector_box, axis){
             var minimum_projection_box = vector_box[1].dot(axis);
             var maximum_projection_box = vector_box[1].dot(axis);
@@ -71,6 +76,17 @@ var physicsEngine = (function (run) {
                 minimum_projection_box: minimum_projection_box,
                 maximum_projection_box: maximum_projection_box
             }
+        };
+
+        this.interval_distance = function(minimumA, maximumA, minimumB, maximumB){
+            if(minimumB > maximumA){
+                return minimumB - maximumA
+            }
+            else{
+                // imagine in terms of boxes overlapping and having crossed each other
+                return minimumA - maximumB
+            }
+
         };
 
         this.get_normals = function(vector_box){
@@ -111,7 +127,9 @@ var physicsEngine = (function (run) {
             calculate_min_max_projection: this.calculate_min_max_projection,
             prepare_vectors: this.prepare_vectors,
             get_normals: this.get_normals,
-            check_is_separated: this.check_is_separated
+            check_is_separated: this.check_is_separated,
+            interval_distance: this.interval_distance,
+            polygon_collision_result: this.polygon_collision_result
         }
 
     })();
