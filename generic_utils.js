@@ -89,6 +89,10 @@ var physicsEngine = (function (run) {
 
         };
 
+        this.polygon_collision_result = function(){
+
+        };
+
         this.get_normals = function(vector_box){
             var normal_box = [];
             //start from 1 because index 0 is center
