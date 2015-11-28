@@ -116,14 +116,14 @@ var physicsEngine = (function (run) {
         var isSeparated = false;
 
         //checks only 2 and total 4 if needed because 2 lie on the same plane
-        isSeparated = check_for_intersection(normals1, vector_box1, vector_box2, rotated_rectangle_vectors,
+        isSeparated = check_for_separation(normals1, vector_box1, vector_box2, rotated_rectangle_vectors,
                                          rotated_rectangle2_vectors, velocity_vector);
-        if (isSeparated.result) {
-            isSeparated = check_for_intersection(normals2, vector_box1, vector_box2, rotated_rectangle_vectors,
+        if (isSeparated.is_separated) {
+            isSeparated = check_for_separation(normals2, vector_box1, vector_box2, rotated_rectangle_vectors,
                                              rotated_rectangle2_vectors, velocity_vector)
         }
 
-        if (isSeparated.result) {
+        if (isSeparated.is_separated) {
             console.log("Separated boxes");
             return false;
         } else {
@@ -133,8 +133,8 @@ var physicsEngine = (function (run) {
 
     }
 
-    function check_for_intersection(normals, vector_box1, vector_box2, rotated_rectangle_vectors, rotated_rectangle2_vectors, velocity_vector) {
-        var intersect = false;
+    function check_for_separation(normals, vector_box1, vector_box2, rotated_rectangle_vectors, rotated_rectangle2_vectors, velocity_vector) {
+        var is_separated = false;
         var will_intersect = false;
         var minimum_interval_distance = Number.POSITIVE_INFINITY;
         var translation_axis;
@@ -156,13 +156,13 @@ var physicsEngine = (function (run) {
             if (interval_distance > 0) {
                 //rect1.setColor("red");
                 //rect2.setColor("green");
-                intersect = false
+                is_separated = false
             }
             else{
-                intersect = true
+                is_separated = true
             }
             console.log("INTERSECt");
-            console.log(intersect);
+            console.log(is_separated);
             //else {
             //    //rect1.setColor("white");
             //    //rect2.setColor("white");
@@ -186,7 +186,7 @@ var physicsEngine = (function (run) {
                 will_intersect = false
             }
 
-            if (!will_intersect && !intersect) {
+            if (!will_intersect && !is_separated) {
                 break;
             }
 
@@ -209,7 +209,7 @@ var physicsEngine = (function (run) {
         }
 
         return {
-            result: intersect,
+            is_separated: is_separated,
             minimum_translation_vector: minimum_translation_vector
         }
     }
