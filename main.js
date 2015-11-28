@@ -20,8 +20,8 @@ var physicsEngine = (function (run) {
             rect2.setCoords();
 
             canvas.renderAll();
-            var rotated_rectangle_vectors = run.generic_utils.modify_fabric_vector_names_to_custom(rect1.oCoords);
-            var rotated_rectangle2_vectors = run.generic_utils.modify_fabric_vector_names_to_custom(rect2.oCoords);
+            var rotated_rectangle_vectors = run.vector_manipulators.modify_fabric_vector_names_to_custom(rect1.oCoords);
+            var rotated_rectangle2_vectors = run.vector_manipulators.modify_fabric_vector_names_to_custom(rect2.oCoords);
 
 
             var velocity_vector = calculate_velocity(rotated_rectangle_vectors);
@@ -62,8 +62,8 @@ var physicsEngine = (function (run) {
             console.log("*****************************");
             console.log(obj.oCoords);
             console.log(options.target.oCoords);
-            var rotated_rectangle_vectors = run.generic_utils.modify_fabric_vector_names_to_custom(obj.oCoords);
-            var rotated_rectangle2_vectors = run.generic_utils.modify_fabric_vector_names_to_custom(options.target.oCoords);
+            var rotated_rectangle_vectors = run.vector_manipulators.modify_fabric_vector_names_to_custom(obj.oCoords);
+            var rotated_rectangle2_vectors = run.vector_manipulators.modify_fabric_vector_names_to_custom(options.target.oCoords);
             var velocity_vector = calculate_velocity(rotated_rectangle_vectors);
             var check = is_colliding(rotated_rectangle_vectors, rotated_rectangle2_vectors, velocity_vector);
             if (check) {
@@ -75,8 +75,6 @@ var physicsEngine = (function (run) {
 
         });
     }
-
-
 
     function calculate_velocity(rotated_rectangle_vectors) {
         //calculate the velocity vector
