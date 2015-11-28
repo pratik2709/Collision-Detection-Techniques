@@ -78,7 +78,7 @@ var physicsEngine = (function (run) {
             }
         };
 
-        this.interval_distance = function(minimumA, maximumA, minimumB, maximumB){
+        this.calculate_interval_distance = function(minimumA, maximumA, minimumB, maximumB){
             if(minimumB > maximumA){
                 return minimumB - maximumA
             }
@@ -132,7 +132,7 @@ var physicsEngine = (function (run) {
             prepare_vectors: this.prepare_vectors,
             get_normals: this.get_normals,
             check_is_separated: this.check_is_separated,
-            interval_distance: this.interval_distance,
+            calculate_interval_distance: this.calculate_interval_distance,
             polygon_collision_result: this.polygon_collision_result
         }
 

@@ -116,10 +116,10 @@ var physicsEngine = (function (run) {
         var isSeparated = false;
 
         //checks only 2 and total 4 if needed because 2 lie on the same plane
-        isSeparated = intersection_logic(normals1, vector_box1, vector_box2, rotated_rectangle_vectors,
+        isSeparated = check_for_intersection(normals1, vector_box1, vector_box2, rotated_rectangle_vectors,
                                          rotated_rectangle2_vectors, velocity_vector);
         if (isSeparated.result) {
-            isSeparated = intersection_logic(normals2, vector_box1, vector_box2, rotated_rectangle_vectors,
+            isSeparated = check_for_intersection(normals2, vector_box1, vector_box2, rotated_rectangle_vectors,
                                              rotated_rectangle2_vectors, velocity_vector)
         }
 
@@ -133,10 +133,9 @@ var physicsEngine = (function (run) {
 
     }
 
-    function intersection_logic(normals, vector_box1, vector_box2, rotated_rectangle_vectors, rotated_rectangle2_vectors, velocity_vector) {
-        var isSeparated = false;
+    function check_for_intersection(normals, vector_box1, vector_box2, rotated_rectangle_vectors, rotated_rectangle2_vectors, velocity_vector) {
         var intersect = false;
-        var willintersect = false;
+        var will_intersect = false;
         var minimum_interval_distance = Number.POSITIVE_INFINITY;
         var translation_axis;
         var minimum_translation_vector;
@@ -147,7 +146,7 @@ var physicsEngine = (function (run) {
             var result_box1 = run.generic_utils.calculate_min_max_projection(vector_box1, normals[i]);
             var result_box2 = run.generic_utils.calculate_min_max_projection(vector_box2, normals[i]);
 
-            interval_distance = run.generic_utils.interval_distance(result_box1.minimum_projection_box,
+            interval_distance = run.generic_utils.calculate_interval_distance(result_box1.minimum_projection_box,
                                                                     result_box1.maximum_projection_box,
                                                                     result_box2.minimum_projection_box,
                                                                     result_box2.maximum_projection_box);
@@ -178,16 +177,16 @@ var physicsEngine = (function (run) {
                 result_box1.maximum_projection_box += velocity_projection
             }
             // do the interval distance test
-            interval_distance = run.generic_utils.interval_distance(result_box1.minimum_projection_box,
+            interval_distance = run.generic_utils.calculate_interval_distance(result_box1.minimum_projection_box,
                                                                     result_box1.maximum_projection_box,
                                                                     result_box2.minimum_projection_box,
                                                                     result_box2.maximum_projection_box);
 
             if (interval_distance > 0) {
-                willintersect = false
+                will_intersect = false
             }
 
-            if (!willintersect && !intersect) {
+            if (!will_intersect && !intersect) {
                 break;
             }
 
