@@ -1,8 +1,6 @@
 var physicsEngine = (function (run) {
 
-
     var canvas = this.__canvas = new fabric.Canvas('myCanvas');
-    var context = canvas.getContext('2d');
     fabric.Object.prototype.transparentCorners = false;
 
     var rect1 = new fabric.Rect({
@@ -22,8 +20,8 @@ var physicsEngine = (function (run) {
             rect2.setCoords();
 
             canvas.renderAll();
-            var rotated_rectangle_vectors = get_vectors_modified(rect1.oCoords);
-            var rotated_rectangle2_vectors = get_vectors_modified(rect2.oCoords);
+            var rotated_rectangle_vectors = run.generic_utils.modify_fabric_vector_names_to_custom(rect1.oCoords);
+            var rotated_rectangle2_vectors = run.generic_utils.modify_fabric_vector_names_to_custom(rect2.oCoords);
 
 
             var velocity_vector = calculate_velocity(rotated_rectangle_vectors);
@@ -64,8 +62,8 @@ var physicsEngine = (function (run) {
             console.log("*****************************");
             console.log(obj.oCoords);
             console.log(options.target.oCoords);
-            var rotated_rectangle_vectors = get_vectors_modified(obj.oCoords);
-            var rotated_rectangle2_vectors = get_vectors_modified(options.target.oCoords);
+            var rotated_rectangle_vectors = run.generic_utils.modify_fabric_vector_names_to_custom(obj.oCoords);
+            var rotated_rectangle2_vectors = run.generic_utils.modify_fabric_vector_names_to_custom(options.target.oCoords);
             var velocity_vector = calculate_velocity(rotated_rectangle_vectors);
             var check = is_colliding(rotated_rectangle_vectors, rotated_rectangle2_vectors, velocity_vector);
             if (check) {
@@ -78,22 +76,7 @@ var physicsEngine = (function (run) {
         });
     }
 
-    function get_vectors_modified(points) {
-        var dot4 = new run.vectorlib.vector(points.tl.x, points.tl.y);
-        var dot1 = new run.vectorlib.vector(points.tr.x, points.tr.y);
-        var dot2 = new run.vectorlib.vector(points.br.x, points.br.y);
-        var dot3 = new run.vectorlib.vector(points.bl.x, points.bl.y);
-        var dot0 = new run.vectorlib.vector(points.bl.x, points.bl.y);
 
-        return {
-            dot0: dot0,
-            dot1: dot1,
-            dot2: dot2,
-            dot3: dot3,
-            dot4: dot4
-
-        }
-    }
 
     function calculate_velocity(rotated_rectangle_vectors) {
         //calculate the velocity vector

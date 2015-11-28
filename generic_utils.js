@@ -89,13 +89,30 @@ var physicsEngine = (function (run) {
             box2.maximum_projection_box < box1.minimum_projection_box;
         };
 
+        this.modify_fabric_vector_names_to_custom = function(points) {
+            var dot4 = new run.vectorlib.vector(points.tl.x, points.tl.y);
+            var dot1 = new run.vectorlib.vector(points.tr.x, points.tr.y);
+            var dot2 = new run.vectorlib.vector(points.br.x, points.br.y);
+            var dot3 = new run.vectorlib.vector(points.bl.x, points.bl.y);
+            var dot0 = new run.vectorlib.vector(points.bl.x, points.bl.y);
+
+            return {
+                dot0: dot0,
+                dot1: dot1,
+                dot2: dot2,
+                dot3: dot3,
+                dot4: dot4
+            }
+        }
+
         return {
             calculate_min_max_projection: this.calculate_min_max_projection,
             prepare_vectors: this.prepare_vectors,
             get_normals: this.get_normals,
             check_is_separated: this.check_is_separated,
             calculate_interval_distance: this.calculate_interval_distance,
-            polygon_collision_result: this.polygon_collision_result
+            polygon_collision_result: this.polygon_collision_result,
+            modify_fabric_vector_names_to_custom: this.modify_fabric_vector_names_to_custom
         }
 
     })();
