@@ -25,8 +25,8 @@ var physicsEngine = (function (run) {
 
 
             var velocity_vector = calculate_velocity(rotated_rectangle_vectors);
-            var check = is_colliding(rotated_rectangle_vectors, rotated_rectangle2_vectors, velocity_vector);
-            if (check) {
+            var check = polygon_collision_result(rotated_rectangle_vectors, rotated_rectangle2_vectors, velocity_vector);
+            if (check.intersect) {
                 rect1.setOpacity(0.5);
             }
             else {
@@ -62,8 +62,8 @@ var physicsEngine = (function (run) {
             var rotated_rectangle_vectors = run.vector_manipulators.modify_fabric_vector_names_to_custom(obj.oCoords);
             var rotated_rectangle2_vectors = run.vector_manipulators.modify_fabric_vector_names_to_custom(options.target.oCoords);
             var velocity_vector = calculate_velocity(rotated_rectangle_vectors);
-            var check = is_colliding(rotated_rectangle_vectors, rotated_rectangle2_vectors, velocity_vector);
-            if (check) {
+            var check = polygon_collision_result(rotated_rectangle_vectors, rotated_rectangle2_vectors, velocity_vector);
+            if (check.intersect) {
                 obj.setOpacity(0.5);
             }
             else {
@@ -84,33 +84,15 @@ var physicsEngine = (function (run) {
     }
 
 
-    function is_colliding(rotated_rectangle_vectors, rotated_rectangle2_vectors, velocity_vector) {
+    function polygon_collision_result(rotated_rectangle_vectors, rotated_rectangle2_vectors, velocity_vector) {
         var vector_box1 = run.vector_manipulators.prepare_vectors(rotated_rectangle_vectors);
         var vector_box2 = run.vector_manipulators.prepare_vectors(rotated_rectangle2_vectors);
 
         var normals1 = run.generic_utils.get_normals(vector_box1);
         var normals2 = run.generic_utils.get_normals(vector_box2);
+        var normals = normals1.concat(normals2);
 
-        var isSeparated = false;
 
-        //checks only 2 and total 4 if needed because 2 lie on the same plane
-
-        //concatenate the 2 arrays of normals
-        var normals_array = normals1.concat(normals2)
-        isSeparated = check_for_separation(normals_array, vector_box1, vector_box2, rotated_rectangle_vectors,
-                                         rotated_rectangle2_vectors, velocity_vector);
-
-        if (isSeparated.is_separated) {
-            console.log("Separated boxes");
-            return false;
-        } else {
-            console.log("Collided boxes.");
-            return true;
-        }
-
-    }
-
-    function check_for_separation(normals, vector_box1, vector_box2, rotated_rectangle_vectors, rotated_rectangle2_vectors, velocity_vector) {
         var intersect = false;
         var will_intersect = false;
         var minimum_interval_distance = Number.POSITIVE_INFINITY;
@@ -158,33 +140,33 @@ var physicsEngine = (function (run) {
                 will_intersect = true;
             }
 
-            console.log("will intersect is::" +will_intersect);
-            if (!intersect) {
+            //console.log("will intersect is::" +will_intersect);
+            if (!will_intersect && !intersect) {
                 break;
             }
 
-            //// ************************************************
-            //
-            //interval_distance = Math.abs(interval_distance);
-            //if (interval_distance < minimum_interval_distance) {
-            //    minimum_interval_distance = interval_distance;
-            //    translation_axis = normals[i]
-            //}
-            //
-            ////find vector -using polygons center
-            //center = rotated_rectangle_vectors.dot0.subtract_vectors(rotated_rectangle2_vectors.dot0);
-            //if (center.dot(normals[i]) < 0) {
-            //    translation_axis = -translation_axis
-            //}
-            //
-            ////isSeparated = run.generic_utils.check_is_separated(result_box1, result_box2);
-            ////if (isSeparated) {
-            ////    break;
-            ////}
+            // ************************************************
+
+            interval_distance = Math.abs(interval_distance);
+            if (interval_distance < minimum_interval_distance) {
+                minimum_interval_distance = interval_distance;
+                translation_axis = normals[i]
+            }
+
+            //find vector -using polygons center
+            center = rotated_rectangle_vectors.dot0.subtract_vectors(rotated_rectangle2_vectors.dot0);
+            if (center.dot(normals[i]) < 0) {
+                translation_axis = -translation_axis
+            }
         }
 
+        // calculate the minimum translation vector here
+        if(will_intersect){
+            minimum_translation_vector = translation_axis*minimum_interval_distance;
+        }
         return {
-            is_separated: intersect,
+            intersect: intersect,
+            will_intersect: will_intersect,
             minimum_translation_vector: minimum_translation_vector
         }
     }
