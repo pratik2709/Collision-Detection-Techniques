@@ -39,7 +39,6 @@ var physicsEngine = (function (run) {
     rect2.animate('left', '-=500', {
         onChange: function () {
             canvas.renderAll();
-
         },
         duration: 5000
     });
@@ -88,8 +87,8 @@ var physicsEngine = (function (run) {
 
 
     function is_colliding(rotated_rectangle_vectors, rotated_rectangle2_vectors, velocity_vector) {
-        var vector_box1 = this.prepare_vectors(rotated_rectangle_vectors);
-        var vector_box2 = this.prepare_vectors(rotated_rectangle2_vectors);
+        var vector_box1 = run.vector_manipulators.prepare_vectors(rotated_rectangle_vectors);
+        var vector_box2 = run.vector_manipulators.prepare_vectors(rotated_rectangle2_vectors);
 
         var normals1 = run.generic_utils.get_normals(vector_box1);
         var normals2 = run.generic_utils.get_normals(vector_box2);
@@ -104,6 +103,7 @@ var physicsEngine = (function (run) {
                                              rotated_rectangle2_vectors, velocity_vector)
         }
 
+
         if (isSeparated.is_separated) {
             console.log("Separated boxes");
             return false;
@@ -115,7 +115,7 @@ var physicsEngine = (function (run) {
     }
 
     function check_for_separation(normals, vector_box1, vector_box2, rotated_rectangle_vectors, rotated_rectangle2_vectors, velocity_vector) {
-        var is_separated = false;
+        var intersect = false;
         var will_intersect = false;
         var minimum_interval_distance = Number.POSITIVE_INFINITY;
         var translation_axis;
@@ -132,23 +132,15 @@ var physicsEngine = (function (run) {
                                                                     result_box2.minimum_projection_box,
                                                                     result_box2.maximum_projection_box);
 
-            console.log("interval");
-            console.log(interval_distance);
+
             if (interval_distance > 0) {
-                //rect1.setColor("red");
-                //rect2.setColor("green");
-                is_separated = false
+                intersect = false
             }
             else{
-                is_separated = true
+                intersect = true
             }
-            console.log("INTERSECt");
-            console.log(is_separated);
-            //else {
-            //    //rect1.setColor("white");
-            //    //rect2.setColor("white");
-            //}
 
+            // find if the polygons will intersect
             //projection of velocity on the current axis
             velocity_projection = normals[i].dot(velocity_vector);
             if (velocity_projection < 0) {
@@ -167,9 +159,11 @@ var physicsEngine = (function (run) {
                 will_intersect = false
             }
 
-            if (!will_intersect && !is_separated) {
+            if (!will_intersect && !intersect) {
                 break;
             }
+
+            // ************************************************
 
             interval_distance = Math.abs(interval_distance);
             if (interval_distance < minimum_interval_distance) {
@@ -190,7 +184,7 @@ var physicsEngine = (function (run) {
         }
 
         return {
-            is_separated: is_separated,
+            is_separated: intersect,
             minimum_translation_vector: minimum_translation_vector
         }
     }
