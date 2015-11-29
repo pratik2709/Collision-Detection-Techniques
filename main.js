@@ -25,6 +25,8 @@ var physicsEngine = (function (run) {
 
 
             var velocity_vector = calculate_velocity(rotated_rectangle_vectors);
+            console.log("velocity is::");
+            console.log(velocity_vector);
             var check = polygon_collision_result(rotated_rectangle_vectors, rotated_rectangle2_vectors, velocity_vector);
             if (check.intersect) {
                 rect1.setOpacity(0.5);
@@ -140,7 +142,7 @@ var physicsEngine = (function (run) {
                 will_intersect = true;
             }
 
-            //console.log("will intersect is::" +will_intersect);
+            console.log("will intersect is::" +will_intersect);
             if (!will_intersect && !intersect) {
                 break;
             }
