@@ -25,7 +25,6 @@ var physicsEngine = (function (run) {
 
                 }
             }
-            console.log("for box1::" +minimum_projection_box, maximum_projection_box);
             return {
                 minimum_projection_box: minimum_projection_box,
                 maximum_projection_box: maximum_projection_box

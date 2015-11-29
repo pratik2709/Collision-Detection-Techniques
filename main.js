@@ -58,9 +58,7 @@ var physicsEngine = (function (run) {
             if (obj === options.target) {
                 return;
             }
-            console.log("*****************************");
-            console.log(obj.oCoords);
-            console.log(options.target.oCoords);
+
             var rotated_rectangle_vectors = run.vector_manipulators.modify_fabric_vector_names_to_custom(obj.oCoords);
             var rotated_rectangle2_vectors = run.vector_manipulators.modify_fabric_vector_names_to_custom(options.target.oCoords);
             var velocity_vector = calculate_velocity(rotated_rectangle_vectors);
@@ -96,13 +94,11 @@ var physicsEngine = (function (run) {
         var isSeparated = false;
 
         //checks only 2 and total 4 if needed because 2 lie on the same plane
-        isSeparated = check_for_separation(normals1, vector_box1, vector_box2, rotated_rectangle_vectors,
-                                         rotated_rectangle2_vectors, velocity_vector);
-        if (isSeparated.is_separated) {
-            isSeparated = check_for_separation(normals2, vector_box1, vector_box2, rotated_rectangle_vectors,
-                                             rotated_rectangle2_vectors, velocity_vector)
-        }
 
+        //concatenate the 2 arrays of normals
+        var normals_array = normals1.concat(normals2)
+        isSeparated = check_for_separation(normals_array, vector_box1, vector_box2, rotated_rectangle_vectors,
+                                         rotated_rectangle2_vectors, velocity_vector);
 
         if (isSeparated.is_separated) {
             console.log("Separated boxes");
@@ -123,7 +119,7 @@ var physicsEngine = (function (run) {
         var interval_distance;
         var velocity_projection;
         var center;
-        for (var i = 1; i < normals.length - 1; i++) {
+        for (var i = 0; i < normals.length; i++) {
             var result_box1 = run.generic_utils.calculate_min_max_projection(vector_box1, normals[i]);
             var result_box2 = run.generic_utils.calculate_min_max_projection(vector_box2, normals[i]);
 
@@ -158,29 +154,33 @@ var physicsEngine = (function (run) {
             if (interval_distance > 0) {
                 will_intersect = false
             }
+            else{
+                will_intersect = true;
+            }
 
-            if (!will_intersect && !intersect) {
+            console.log("will intersect is::" +will_intersect);
+            if (!intersect) {
                 break;
             }
 
-            // ************************************************
-
-            interval_distance = Math.abs(interval_distance);
-            if (interval_distance < minimum_interval_distance) {
-                minimum_interval_distance = interval_distance;
-                translation_axis = normals[i]
-            }
-
-            //find vector -using polygons center
-            center = rotated_rectangle_vectors.dot0.subtract_vectors(rotated_rectangle2_vectors.dot0);
-            if (center.dot(normals[i]) < 0) {
-                translation_axis = -translation_axis
-            }
-
-            //isSeparated = run.generic_utils.check_is_separated(result_box1, result_box2);
-            //if (isSeparated) {
-            //    break;
+            //// ************************************************
+            //
+            //interval_distance = Math.abs(interval_distance);
+            //if (interval_distance < minimum_interval_distance) {
+            //    minimum_interval_distance = interval_distance;
+            //    translation_axis = normals[i]
             //}
+            //
+            ////find vector -using polygons center
+            //center = rotated_rectangle_vectors.dot0.subtract_vectors(rotated_rectangle2_vectors.dot0);
+            //if (center.dot(normals[i]) < 0) {
+            //    translation_axis = -translation_axis
+            //}
+            //
+            ////isSeparated = run.generic_utils.check_is_separated(result_box1, result_box2);
+            ////if (isSeparated) {
+            ////    break;
+            ////}
         }
 
         return {
