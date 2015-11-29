@@ -42,10 +42,6 @@ var physicsEngine = (function (run) {
 
         };
 
-        this.polygon_collision_result = function(){
-
-        };
-
         this.get_normals = function(vector_box){
             var normal_box = [];
             //start from 1 because index 0 is center
@@ -82,8 +78,7 @@ var physicsEngine = (function (run) {
             calculate_min_max_projection: this.calculate_min_max_projection,
             get_normals: this.get_normals,
             check_is_separated: this.check_is_separated,
-            calculate_interval_distance: this.calculate_interval_distance,
-            polygon_collision_result: this.polygon_collision_result,
+            calculate_interval_distance: this.calculate_interval_distance
         }
 
     })();
