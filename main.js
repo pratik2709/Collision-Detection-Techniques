@@ -10,13 +10,14 @@ window.requestAnimFrame = (function(){
 
 var physicsEngine = (function (run) {
 
-    main();
     var canvas = this.__canvas = new fabric.Canvas('myCanvas');
     fabric.Object.prototype.transparentCorners = false;
+    var x = 10;
+    var y = 10;
 
-    //function add_rectangle_to_canvas(canvas){
+    function add_rectangle_to_canvas(canvas, x, y){
         var rect1 = new fabric.Rect({
-                                        width: 100, height: 100, left: 100, top: 50, angle: 30,
+                                        width: 100, height: 100, left: x, top: y, angle: 30,
                                         fill: 'red'
                                     });
 
@@ -26,36 +27,33 @@ var physicsEngine = (function (run) {
                                     });
 
         canvas.add(rect1, rect2);
-        canvas.on({
-                      'object:moving': onChange,
-                      'object:scaling': onChange,
-                      'object:rotating': onChange
-                  });
-    //}
 
-    // move the rectangles using request animframe
-    // will also be the main method
+    }
+
+    function remove_rectangle_from_canvas(){
+        canvas.clear().renderAll()
+    }
+    main();
+
     function main(){
+        remove_rectangle_from_canvas();
         var speed = 4;
-        var angle = 305;
+        var angle = 1;
         var radians = angle * Math.PI/ 180;
         var vx = Math.cos(radians) * speed;
         var vy = Math.sin(radians) * speed;
-        //add_rectangle_to_canvas(canvas);
+        x += vx;
+        y += vy;
+        add_rectangle_to_canvas(canvas, x, y);
+        requestAnimFrame(main);
     }
 
     function execute_check(){
-        rect1.setCoords();
-        rect2.setCoords();
-
-        canvas.renderAll();
         var rotated_rectangle_vectors = run.vector_manipulators.modify_fabric_vector_names_to_custom(rect1.oCoords);
         var rotated_rectangle2_vectors = run.vector_manipulators.modify_fabric_vector_names_to_custom(rect2.oCoords);
 
 
         var velocity_vector = calculate_velocity(rotated_rectangle_vectors);
-        console.log("velocity is::");
-        console.log(velocity_vector);
         var check = run.collision_utils.polygon_collision_result(rotated_rectangle_vectors, rotated_rectangle2_vectors, velocity_vector);
         if (check.intersect) {
             rect1.setOpacity(0.5);
