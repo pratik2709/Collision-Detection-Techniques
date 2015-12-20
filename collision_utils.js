@@ -3,13 +3,14 @@ var physicsEngine = (function (run) {
     run.collision_utils = (function () {
 
         this.polygon_collision_result = function(rotated_rectangle_vectors, rotated_rectangle2_vectors, velocity_vector) {
-            console.log("hi");
             var vector_box1 = run.vector_manipulators.prepare_vectors(rotated_rectangle_vectors);
             var vector_box2 = run.vector_manipulators.prepare_vectors(rotated_rectangle2_vectors);
 
             var normals1 = run.generic_utils.get_normals(vector_box1);
             var normals2 = run.generic_utils.get_normals(vector_box2);
             var normals = normals1.concat(normals2);
+            var mtvx;
+            var mtvy;
 
 
             var intersect = false;
@@ -59,29 +60,48 @@ var physicsEngine = (function (run) {
                     will_intersect = true;
                 }
 
-                console.log("will intersect is::" + will_intersect);
                 if (!will_intersect && !intersect) {
                     break;
                 }
 
                 // ************************************************
+                console.log("interval distance::");
+                console.log(interval_distance);
+
 
                 interval_distance = Math.abs(interval_distance);
                 if (interval_distance < minimum_interval_distance) {
+                    console.log("inside minimum interval distance");
+
                     minimum_interval_distance = interval_distance;
-                    translation_axis = normals[i]
+                    console.log(minimum_interval_distance);
+                    translation_axis = normals[i];
+                    console.log("printing translation axis::");
+                    console.log(translation_axis.x, translation_axis.y);
+                    console.log("**********");
                 }
 
                 //find vector -using polygons center
                 center = rotated_rectangle_vectors.dot0.subtract_vectors(rotated_rectangle2_vectors.dot0);
                 if (center.dot(normals[i]) < 0) {
-                    translation_axis = -translation_axis
+                    console.log("inside center");
+
+                    translation_axis.x = -translation_axis.x;
+                    translation_axis.y = -translation_axis.y;
+                    console.log(translation_axis.x, translation_axis.y);
+                    console.log("///////");
+
                 }
             }
 
             // calculate the minimum translation vector here
             if (will_intersect) {
-                minimum_translation_vector = translation_axis * minimum_interval_distance;
+                mtvx = translation_axis.x * minimum_interval_distance;
+                mtvy = translation_axis.y * minimum_interval_distance;
+                minimum_translation_vector = new run.vectorlib.vector(mtvx, mtvy);
+                console.log(minimum_translation_vector);
+                console.log("[][][][][]");
+
             }
             return {
                 intersect: intersect,
