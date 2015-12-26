@@ -24,7 +24,6 @@ var physicsEngine = (function (run) {
     var vx = Math.cos(radians) * speed;
     var vy = Math.sin(radians) * speed;
     var velocity_vector = new run.vectorlib.vector(vx, vy);
-    var n_velocity_vector = new run.vectorlib.vector(-vx, -vy);
     add_rectangle_to_canvas(canvas, x, y);
 
     function add_rectangle_to_canvas(canvas, x, y,a ,b) {
@@ -60,7 +59,6 @@ var physicsEngine = (function (run) {
             rect1.setOpacity(0.5);
             x += (velocity_vector.x + check.minimum_translation_vector.x);
             y += (velocity_vector.y + check.minimum_translation_vector.y);
-            //velocity_vector = new run.vectorlib.vector(vx, vy);
             add_rectangle_to_canvas(canvas, x, y, a, b);
 
         }
@@ -68,7 +66,6 @@ var physicsEngine = (function (run) {
             rect1.setOpacity(1);
             x += velocity_vector.x;
             y += velocity_vector.y;
-            //velocity_vector = new run.vectorlib.vector(vx, vy);
             add_rectangle_to_canvas(canvas, x, y, a, b);
         }
 

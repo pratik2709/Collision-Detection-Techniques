@@ -2,10 +2,6 @@ var physicsEngine = (function (run) {
 
     run.generic_utils = (function () {
 
-        this.calculate_minimum_translation_vector = function(){
-
-
-        };
 
         this.calculate_min_max_projection = function(vector_box, axis){
             var minimum_projection_box = vector_box[1].dot(axis);

@@ -65,52 +65,39 @@ var physicsEngine = (function (run) {
                 }
 
                 // ************************************************
-                console.log("interval distance::");
-                console.log(interval_distance);
-
 
                 interval_distance = Math.abs(interval_distance);
                 if (interval_distance < minimum_interval_distance) {
-                    console.log("inside minimum interval distance");
-
                     minimum_interval_distance = interval_distance;
-                    console.log(minimum_interval_distance);
                     translation_axis = normals[i];
-                    console.log("printing translation axis::");
-                    console.log(translation_axis.x, translation_axis.y);
-                    console.log("**********");
                 }
 
                 //find vector -using polygons center
                 center = rotated_rectangle_vectors.dot0.subtract_vectors(rotated_rectangle2_vectors.dot0);
                 if (center.dot(normals[i]) < 0) {
-                    console.log("inside center");
-
                     translation_axis.x = -translation_axis.x;
                     translation_axis.y = -translation_axis.y;
 
-                    console.log("///////");
+                }
+                // calculate the minimum translation vector here
+                if (will_intersect) {
+                    mtvx = translation_axis.x * minimum_interval_distance;
+                    mtvy = translation_axis.y * minimum_interval_distance;
+                    minimum_translation_vector = new run.vectorlib.vector(mtvx, mtvy);
+                    console.log("2nd MINIMUM");
+                    console.log(minimum_translation_vector);
 
                 }
             }
 
-            // calculate the minimum translation vector here
-            if (will_intersect) {
-                console.log("insideee will intersect");
-                console.log(translation_axis.x, translation_axis.y);
-                mtvx = translation_axis.x * minimum_interval_distance;
-                mtvy = translation_axis.y * minimum_interval_distance;
-                minimum_translation_vector = new run.vectorlib.vector(mtvx, mtvy);
-                console.log(minimum_translation_vector);
-                console.log("[][][][][]");
 
-            }
             return {
                 intersect: intersect,
                 will_intersect: will_intersect,
                 minimum_translation_vector: minimum_translation_vector
             }
         };
+
 
         return {
             polygon_collision_result: this.polygon_collision_result
