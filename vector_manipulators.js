@@ -26,7 +26,7 @@ var physicsEngine = (function (run) {
                 dot3: dot3,
                 dot4: dot4
             }
-        }
+        };
 
         return {
             prepare_vectors: this.prepare_vectors,
