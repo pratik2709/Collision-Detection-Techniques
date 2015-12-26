@@ -14,6 +14,8 @@ var physicsEngine = (function (run) {
     fabric.Object.prototype.transparentCorners = false;
     var x = 10;
     var y = 10;
+    var a = 450;
+    var b = 50;
     var rect1;
     var rect2;
     var speed = 4;
@@ -22,16 +24,19 @@ var physicsEngine = (function (run) {
     var vx = Math.cos(radians) * speed;
     var vy = Math.sin(radians) * speed;
     var velocity_vector = new run.vectorlib.vector(vx, vy);
+    var n_velocity_vector = new run.vectorlib.vector(-vx, -vy);
     add_rectangle_to_canvas(canvas, x, y);
 
-    function add_rectangle_to_canvas(canvas, x, y) {
+    function add_rectangle_to_canvas(canvas, x, y,a ,b) {
         rect1 = new fabric.Rect({
             width: 100, height: 100, left: x, top: y, angle: 30,
             fill: 'red'
         });
 
+        //450 50
+
         rect2 = new fabric.Rect({
-            width: 100, height: 100, left: 450, top: 50, angle: -10,
+            width: 100, height: 100, left: a, top: b, angle: -10,
             fill: 'green'
         });
 
@@ -53,11 +58,10 @@ var physicsEngine = (function (run) {
         var check = run.collision_utils.polygon_collision_result(rotated_rectangle_vectors, rotated_rectangle2_vectors, velocity_vector);
         if (check.intersect) {
             rect1.setOpacity(0.5);
-            velocity_vector.add(check.minimum_translation_vector);
-            x += velocity_vector.x;
-            y += velocity_vector.y;
+            x += (velocity_vector.x + check.minimum_translation_vector.x);
+            y += (velocity_vector.y + check.minimum_translation_vector.y);
             //velocity_vector = new run.vectorlib.vector(vx, vy);
-            add_rectangle_to_canvas(canvas, x, y);
+            add_rectangle_to_canvas(canvas, x, y, a, b);
 
         }
         else {
@@ -65,7 +69,7 @@ var physicsEngine = (function (run) {
             x += velocity_vector.x;
             y += velocity_vector.y;
             //velocity_vector = new run.vectorlib.vector(vx, vy);
-            add_rectangle_to_canvas(canvas, x, y);
+            add_rectangle_to_canvas(canvas, x, y, a, b);
         }
 
         requestAnimFrame(main);

@@ -88,7 +88,7 @@ var physicsEngine = (function (run) {
 
                     translation_axis.x = -translation_axis.x;
                     translation_axis.y = -translation_axis.y;
-                    console.log(translation_axis.x, translation_axis.y);
+
                     console.log("///////");
 
                 }
@@ -96,6 +96,8 @@ var physicsEngine = (function (run) {
 
             // calculate the minimum translation vector here
             if (will_intersect) {
+                console.log("insideee will intersect");
+                console.log(translation_axis.x, translation_axis.y);
                 mtvx = translation_axis.x * minimum_interval_distance;
                 mtvy = translation_axis.y * minimum_interval_distance;
                 minimum_translation_vector = new run.vectorlib.vector(mtvx, mtvy);
