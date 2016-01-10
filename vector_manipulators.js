@@ -13,11 +13,18 @@ var physicsEngine = (function (run) {
         };
 
         this.modify_fabric_vector_names_to_custom = function(points) {
+            console.log(points);
             var dot4 = new run.vectorlib.vector(points.tl.x, points.tl.y);
             var dot1 = new run.vectorlib.vector(points.tr.x, points.tr.y);
             var dot2 = new run.vectorlib.vector(points.br.x, points.br.y);
             var dot3 = new run.vectorlib.vector(points.bl.x, points.bl.y);
-            var dot0 = new run.vectorlib.vector(points.bl.x, points.bl.y);
+
+            // calculate center
+            var top_x = (points.tl.x + points.tr.x)/2;
+            var side_y = (points.tl.y + points.bl.y)/2;
+
+
+            var dot0 = new run.vectorlib.vector(top_x, side_y);
 
             return {
                 dot0: dot0,
