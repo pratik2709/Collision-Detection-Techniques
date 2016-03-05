@@ -13,7 +13,6 @@ var requestId;
 var physicsEngine = (function (run) {
 
         //fabric.Object.prototype.transparentCorners = false;
-
         var x, y, a, b,rect1,rect2,speed,angle,vx,vy,velocity_vector, radians, canvas;
         initialize_variables();
         add_rectangle_to_canvas(canvas, x, y, a, b);
@@ -134,6 +133,7 @@ var physicsEngine = (function (run) {
 
 
 function start() {
+    physicsEngine.initialize_variables();
     physicsEngine.main()
 }
 
