@@ -140,7 +140,6 @@ function start() {
 function reset(){
     stop();
     physicsEngine.initialize_variables();
-    physicsEngine.add_rectangle_to_canvas(10,10,450,50);
     start();
 }
 
