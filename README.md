@@ -2,7 +2,9 @@
 Experiment with Collision Detection techniques using JavaScript 
 
 ## Introduction
-This is an experiment in Collision Detection techniques using JavaScript. See it in action here: http://namastespock.com/2016/04/02/vector-maths-for-game-programming-part-2/
+This is an experiment in Collision Detection techniques using JavaScript.
+The original code was written in ActionScript and this is a JavaScript port.
+See it in action here: http://namastespock.com/2016/04/02/vector-maths-for-game-programming-part-2/
 
 ## What is Seperating Axis Theorem ?
 * https://en.wikipedia.org/wiki/Hyperplane_separation_theorem
